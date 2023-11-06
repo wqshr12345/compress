@@ -11,8 +11,10 @@ import (
 	"math"
 	rdebug "runtime/debug"
 	"sync"
+	"time"
 
 	"github.com/klauspost/compress/zstd/internal/xxhash"
+	"github.com/wqshr12345/golib/common"
 )
 
 // Encoder provides encoding to Zstandard.
@@ -179,6 +181,54 @@ func (e *Encoder) Write(p []byte) (n int, err error) {
 		}
 	}
 	return n, nil
+}
+
+func (e *Encoder) Write2(p []byte) (n int, cmprInfo common.CompressInfo, isNil bool, err error) {
+	s := &e.state
+	for len(p) > 0 {
+		if len(p)+len(s.filling) < e.o.blockSize {
+			if e.o.crc {
+				_, _ = s.encoder.CRC().Write(p)
+			}
+			s.filling = append(s.filling, p...)
+			return n + len(p), cmprInfo, true, nil
+		}
+		add := p
+		if len(p)+len(s.filling) > e.o.blockSize {
+			add = add[:e.o.blockSize-len(s.filling)]
+		}
+		if e.o.crc {
+			_, _ = s.encoder.CRC().Write(add)
+		}
+		s.filling = append(s.filling, add...)
+		p = p[len(add):]
+		n += len(add)
+		if len(s.filling) < e.o.blockSize {
+			return n, cmprInfo, true, nil
+		}
+		// code for compression information.
+		startInput := s.nInput
+		startWritten := s.nWritten
+		startTs := time.Now().UnixNano()
+
+		err := e.nextBlock(false)
+
+		endInput := s.nInput
+		endWritten := s.nWritten
+		endTs := time.Now().UnixNano()
+
+		cmprInfo.DataLen = int(endInput - startInput)
+		cmprInfo.CompressTime = endTs - startTs
+		cmprInfo.CompressRatio = float64(endWritten-startWritten) / float64(endInput-startInput)
+
+		if err != nil {
+			return n, cmprInfo, false, err
+		}
+		if debugAsserts && len(s.filling) > 0 {
+			panic(len(s.filling))
+		}
+	}
+	return n, cmprInfo, false, nil
 }
 
 // nextBlock will synchronize and start compressing input in e.state.filling.
@@ -410,6 +460,35 @@ func (e *Encoder) Flush() error {
 		return s.err
 	}
 	return s.writeErr
+}
+
+func (e *Encoder) Flush2() (cmprInfo common.CompressInfo, err error) {
+	s := &e.state
+	if len(s.filling) > 0 {
+		// code for compression information.
+		startInput := s.nInput
+		startWritten := s.nWritten
+		startTs := time.Now().UnixNano()
+
+		err = e.nextBlock(false)
+
+		endInput := s.nInput
+		endWritten := s.nWritten
+		endTs := time.Now().UnixNano()
+
+		cmprInfo.DataLen = int(endInput - startInput)
+		cmprInfo.CompressTime = endTs - startTs
+		cmprInfo.CompressRatio = float64(endWritten-startWritten) / float64(endInput-startInput)
+		if err != nil {
+			return cmprInfo, err
+		}
+	}
+	s.wg.Wait()
+	s.wWg.Wait()
+	if s.err != nil {
+		return cmprInfo, s.err
+	}
+	return cmprInfo, s.writeErr
 }
 
 // Close will flush the final output and close the stream.

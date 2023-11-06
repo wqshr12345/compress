@@ -9,8 +9,10 @@ import (
 	"encoding/binary"
 	"io"
 	"sync"
+	"time"
 
 	"github.com/klauspost/compress/zstd/internal/xxhash"
+	"github.com/wqshr12345/golib/common"
 )
 
 // Decoder provides decoding of zstandard streams.
@@ -161,6 +163,48 @@ func (d *Decoder) Read(p []byte) (int, error) {
 		println("returning", n, d.current.err, len(d.decoders))
 	}
 	return n, d.current.err
+}
+
+func (d *Decoder) Read2(p []byte) (n int, cmprInfo common.CompressInfo, isNil bool, err error) {
+	for {
+		if len(d.current.b) > 0 {
+			filled := copy(p, d.current.b)
+			p = p[filled:]
+			d.current.b = d.current.b[filled:]
+			n += filled
+		}
+		if len(p) == 0 {
+			break
+		}
+		if len(d.current.b) == 0 {
+			// We have an error and no more data
+			if d.current.err != nil {
+				break
+			}
+			// code for compression information.
+			startTs := time.Now().UnixNano()
+			flag := d.nextBlock(n == 0)
+			endTs := time.Now().UnixNano()
+			cmprInfo.DecompressTime = endTs - startTs
+			if !flag {
+				return n, cmprInfo, false, d.current.err
+			}
+		}
+	}
+	if len(d.current.b) > 0 {
+		if debugDecoder {
+			println("returning", n, "still bytes left:", len(d.current.b))
+		}
+		// Only return error at end of block
+		return n, cmprInfo, true, nil
+	}
+	if d.current.err != nil {
+		d.drainOutput()
+	}
+	if debugDecoder {
+		println("returning", n, d.current.err, len(d.decoders))
+	}
+	return n, cmprInfo, true, d.current.err
 }
 
 // Reset will reset the decoder the supplied stream after the current has finished processing.
