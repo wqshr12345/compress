@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/klauspost/compress/internal/fuzz"
-	"github.com/klauspost/compress/s2"
+	"github.com/wqshr12345/compress/internal/fuzz"
+	"github.com/wqshr12345/compress/s2"
 )
 
 func FuzzDecode(f *testing.F) {

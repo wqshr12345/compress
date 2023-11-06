@@ -37,14 +37,14 @@ This is important, so you don't have to worry about spending CPU cycles on alrea
 
 # Usage
 
-Installation: `go get -u github.com/klauspost/compress/s2`
+Installation: `go get -u github.com/wqshr12345/compress/s2`
 
 Full package documentation:
  
 [![godoc][1]][2]
 
-[1]: https://godoc.org/github.com/klauspost/compress?status.svg
-[2]: https://godoc.org/github.com/klauspost/compress/s2
+[1]: https://godoc.org/github.com/wqshr12345/compress?status.svg
+[2]: https://godoc.org/github.com/wqshr12345/compress/s2
 
 ## Compression
 
@@ -140,15 +140,15 @@ Block function always operate on a single goroutine since it should only be used
 
 Some very simply commandline tools are provided; `s2c` for compression and `s2d` for decompression.
 
-Binaries can be downloaded on the [Releases Page](https://github.com/klauspost/compress/releases).
+Binaries can be downloaded on the [Releases Page](https://github.com/wqshr12345/compress/releases).
 
 Installing then requires Go to be installed. To install them, use:
 
-`go install github.com/klauspost/compress/s2/cmd/s2c@latest && go install github.com/klauspost/compress/s2/cmd/s2d@latest`
+`go install github.com/wqshr12345/compress/s2/cmd/s2c@latest && go install github.com/wqshr12345/compress/s2/cmd/s2d@latest`
 
 To build binaries to the current folder use:
 
-`go build github.com/klauspost/compress/s2/cmd/s2c && go build github.com/klauspost/compress/s2/cmd/s2d`
+`go build github.com/wqshr12345/compress/s2/cmd/s2c && go build github.com/wqshr12345/compress/s2/cmd/s2d`
 
 
 ## s2c
@@ -314,7 +314,7 @@ For security reasons files that move below the root folder are not allowed.
 
 This section will focus on comparisons to Snappy. 
 This package is solely aimed at replacing Snappy as a high speed compression package.
-If you are mainly looking for better compression [zstandard](https://github.com/klauspost/compress/tree/master/zstd#zstd)
+If you are mainly looking for better compression [zstandard](https://github.com/wqshr12345/compress/tree/master/zstd#zstd)
 gives better compression, but typically at speeds slightly below "better" mode in this package.
 
 Compression is increased compared to Snappy, mostly around 5-20% and the throughput is typically 25-40% increased (single threaded) compared to the Snappy Go implementation.
@@ -419,7 +419,7 @@ Even though S2 typically compresses better than Snappy, decompression speed is a
 
 ### Concurrent Stream Decompression
 
-For full stream decompression S2 offers a [DecodeConcurrent](https://pkg.go.dev/github.com/klauspost/compress/s2#Reader.DecodeConcurrent) 
+For full stream decompression S2 offers a [DecodeConcurrent](https://pkg.go.dev/github.com/wqshr12345/compress/s2#Reader.DecodeConcurrent) 
 that will decode a full stream using multiple goroutines.
 
 Example scaling, AMD Ryzen 3950X, 16 cores, decompression using `s2d -bench=3 <input>`, best of 3: 
@@ -718,8 +718,8 @@ S2 now offers full compatibility with Snappy.
 
 This means that the efficient encoders of S2 can be used to generate fully Snappy compatible output.
 
-There is a [snappy](https://github.com/klauspost/compress/tree/master/snappy) package that can be used by
-simply changing imports from `github.com/golang/snappy` to `github.com/klauspost/compress/snappy`.
+There is a [snappy](https://github.com/wqshr12345/compress/tree/master/snappy) package that can be used by
+simply changing imports from `github.com/golang/snappy` to `github.com/wqshr12345/compress/snappy`.
 This uses "better" mode for all operations.
 If you would like more control, you can use the s2 package as described below: 
 
@@ -772,10 +772,10 @@ All decompression functions map directly to equivalent s2 functions.
 | snappy.DecodedLen(...) | s2.DecodedLen(...) |
 | snappy.NewReader(...)  | s2.NewReader(...)  |
 
-Features like [quick forward skipping without decompression](https://pkg.go.dev/github.com/klauspost/compress/s2#Reader.Skip)
+Features like [quick forward skipping without decompression](https://pkg.go.dev/github.com/wqshr12345/compress/s2#Reader.Skip)
 are also available for Snappy streams.
 
-If you know you are only decompressing snappy streams, setting [`ReaderMaxBlockSize(64<<10)`](https://pkg.go.dev/github.com/klauspost/compress/s2#ReaderMaxBlockSize)
+If you know you are only decompressing snappy streams, setting [`ReaderMaxBlockSize(64<<10)`](https://pkg.go.dev/github.com/wqshr12345/compress/s2#ReaderMaxBlockSize)
 on your Reader will reduce memory consumption.
 
 # Concatenating blocks and streams.
@@ -863,14 +863,14 @@ This will read the index from `index`. Since we specify non-random (forward only
 
 Finally, since we specify that we want to do random seeking `r` must be an io.Seeker. 
 
-The returned [ReadSeeker](https://pkg.go.dev/github.com/klauspost/compress/s2#ReadSeeker) contains a shallow reference to the existing Reader,
+The returned [ReadSeeker](https://pkg.go.dev/github.com/wqshr12345/compress/s2#ReadSeeker) contains a shallow reference to the existing Reader,
 meaning changes performed to one is reflected in the other.
 
 To check if a stream contains an index at the end, the `(*Index).LoadStream(rs io.ReadSeeker) error` can be used.
 
 ## Manually Forwarding Streams
 
-Indexes can also be read outside the decoder using the [Index](https://pkg.go.dev/github.com/klauspost/compress/s2#Index) type.
+Indexes can also be read outside the decoder using the [Index](https://pkg.go.dev/github.com/wqshr12345/compress/s2#Index) type.
 This can be used for parsing indexes, either separate or in streams.
 
 In some cases it may not be possible to serve a seekable stream.
@@ -917,10 +917,10 @@ This will ensure that we are at exactly the offset we want, and reading from `de
 
 # Compact storage
 
-For compact storage [RemoveIndexHeaders](https://pkg.go.dev/github.com/klauspost/compress/s2#RemoveIndexHeaders) can be used to remove any redundant info from 
-a serialized index. If you remove the header it must be restored before [Loading](https://pkg.go.dev/github.com/klauspost/compress/s2#Index.Load).
+For compact storage [RemoveIndexHeaders](https://pkg.go.dev/github.com/wqshr12345/compress/s2#RemoveIndexHeaders) can be used to remove any redundant info from 
+a serialized index. If you remove the header it must be restored before [Loading](https://pkg.go.dev/github.com/wqshr12345/compress/s2#Index.Load).
 
-This is expected to save 20 bytes. These can be restored using [RestoreIndexHeaders](https://pkg.go.dev/github.com/klauspost/compress/s2#RestoreIndexHeaders). This removes a layer of security, but is the most compact representation. Returns nil if headers contains errors.
+This is expected to save 20 bytes. These can be restored using [RestoreIndexHeaders](https://pkg.go.dev/github.com/wqshr12345/compress/s2#RestoreIndexHeaders). This removes a layer of security, but is the most compact representation. Returns nil if headers contains errors.
 
 ## Index Format:
 
@@ -1014,7 +1014,7 @@ To decode from any given uncompressed offset `(wantOffset)`:
 * Start decoding from `entry[n-1].CompressedOffset`.
 * Discard `entry[n-1].UncompressedOffset - wantOffset` bytes from the decoded stream.
 
-See [using indexes](https://github.com/klauspost/compress/tree/master/s2#using-indexes) for functions that perform the operations with a simpler interface.
+See [using indexes](https://github.com/wqshr12345/compress/tree/master/s2#using-indexes) for functions that perform the operations with a simpler interface.
 
 
 # Format Extensions

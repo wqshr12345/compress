@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"errors"
 
-	"github.com/klauspost/compress/s2"
+	"github.com/wqshr12345/compress/s2"
 )
 
 var (

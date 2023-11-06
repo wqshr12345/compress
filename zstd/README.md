@@ -16,16 +16,16 @@ For seekable zstd streams, see [this excellent package](https://github.com/SaveT
 
 ## Installation
 
-Install using `go get -u github.com/klauspost/compress`. The package is located in `github.com/klauspost/compress/zstd`.
+Install using `go get -u github.com/wqshr12345/compress`. The package is located in `github.com/wqshr12345/compress/zstd`.
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/klauspost/compress/zstd.svg)](https://pkg.go.dev/github.com/klauspost/compress/zstd)
+[![Go Reference](https://pkg.go.dev/badge/github.com/wqshr12345/compress/zstd.svg)](https://pkg.go.dev/github.com/wqshr12345/compress/zstd)
 
 ## Compressor
 
 ### Status: 
 
 STABLE - there may always be subtle bugs, a wide variety of content has been tested and the library is actively 
-used by several projects. This library is being [fuzz-tested](https://github.com/klauspost/compress-fuzz) for all updates.
+used by several projects. This library is being [fuzz-tested](https://github.com/wqshr12345/compress-fuzz) for all updates.
 
 There may still be specific combinations of data types/size/settings that could lead to edge cases, 
 so as always, testing is recommended.  
@@ -120,7 +120,7 @@ This will effectively make it run without allocations after a warmup period.
 To make it run completely without allocations, supply a destination buffer with space for all content.   
 
 ```Go
-import "github.com/klauspost/compress/zstd"
+import "github.com/wqshr12345/compress/zstd"
 
 // Create a writer that caches compressors.
 // For this operation type we supply a nil Reader.
@@ -261,7 +261,7 @@ nyc-taxi-data-10M.csv   gzkp    1   3325605752  922273214   13929   227.68
 
 Staus: STABLE - there may still be subtle bugs, but a wide variety of content has been tested.
 
-This library is being continuously [fuzz-tested](https://github.com/klauspost/compress-fuzz),
+This library is being continuously [fuzz-tested](https://github.com/wqshr12345/compress-fuzz),
 kindly supplied by [fuzzit.dev](https://fuzzit.dev/). 
 The main purpose of the fuzz testing is to ensure that it is not possible to crash the decoder, 
 or run it past its limits with ANY input provided.  
@@ -274,7 +274,7 @@ There are two main usages of the package for these. Both of them are accessed by
 For streaming use a simple setup could look like this:
 
 ```Go
-import "github.com/klauspost/compress/zstd"
+import "github.com/wqshr12345/compress/zstd"
 
 func Decompress(in io.Reader, out io.Writer) error {
     d, err := zstd.NewReader(in)
@@ -300,7 +300,7 @@ as it is being requested only.
 For decoding buffers, it could look something like this:
 
 ```Go
-import "github.com/klauspost/compress/zstd"
+import "github.com/wqshr12345/compress/zstd"
 
 // Create a reader that caches decompressors.
 // For this operation type we supply a nil Reader.
@@ -428,7 +428,7 @@ different packages will result in a panic.
 It is a good idea to only have a single compressor and decompressor, since they can be used for multiple zip
 files concurrently, and using a single instance will allow reusing some resources.
 
-See [this example](https://pkg.go.dev/github.com/klauspost/compress/zstd#example-ZipCompressor) for 
+See [this example](https://pkg.go.dev/github.com/wqshr12345/compress/zstd#example-ZipCompressor) for 
 how to compress and decompress files inside zip archives.
 
 # Contributions

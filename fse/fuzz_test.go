@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/klauspost/compress/internal/fuzz"
+	"github.com/wqshr12345/compress/internal/fuzz"
 )
 
 func FuzzCompress(f *testing.F) {

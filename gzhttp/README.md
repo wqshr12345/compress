@@ -14,12 +14,12 @@ and extends functionality for it.
 
 ## Install
 ```bash
-go get -u github.com/klauspost/compress
+go get -u github.com/wqshr12345/compress
 ```
 
 ## Documentation
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/klauspost/compress/gzhttp.svg)](https://pkg.go.dev/github.com/klauspost/compress/gzhttp)
+[![Go Reference](https://pkg.go.dev/badge/github.com/wqshr12345/compress/gzhttp.svg)](https://pkg.go.dev/github.com/wqshr12345/compress/gzhttp)
 
 
 ## Usage
@@ -85,7 +85,7 @@ package main
 import (
 	"io"
 	"net/http"
-	"github.com/klauspost/compress/gzhttp"
+	"github.com/wqshr12345/compress/gzhttp"
 )
 
 func main() {
@@ -112,8 +112,8 @@ import (
 	"log"
 	"net/http"
 	
-	"github.com/klauspost/compress/gzhttp"
-	"github.com/klauspost/compress/gzip"
+	"github.com/wqshr12345/compress/gzhttp"
+	"github.com/wqshr12345/compress/gzip"
 )
 
 func main() {
@@ -183,7 +183,7 @@ This is not intended for regular web servers serving individual requests.
 Use `CompressionLevel(-3)` or `CompressionLevel(gzip.StatelessCompression)` to enable.
 Consider adding a [`bufio.Writer`](https://golang.org/pkg/bufio/#NewWriterSize) with a small buffer.
 
-See [more details on stateless compression](https://github.com/klauspost/compress#stateless-compression).
+See [more details on stateless compression](https://github.com/wqshr12345/compress#stateless-compression).
 
 ### Migrating from gziphandler
 

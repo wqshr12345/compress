@@ -16,7 +16,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/klauspost/compress/gzip"
+	"github.com/wqshr12345/compress/gzip"
 )
 
 var (

@@ -9,7 +9,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/klauspost/compress/flate"
+	"github.com/wqshr12345/compress/flate"
 )
 
 // A Compressor returns a new compressing writer, writing to w.

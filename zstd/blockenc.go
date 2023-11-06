@@ -10,7 +10,7 @@ import (
 	"math"
 	"math/bits"
 
-	"github.com/klauspost/compress/huff0"
+	"github.com/wqshr12345/compress/huff0"
 )
 
 type blockEnc struct {

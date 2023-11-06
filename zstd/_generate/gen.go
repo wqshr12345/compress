@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"runtime"
 
-	_ "github.com/klauspost/compress"
+	_ "github.com/wqshr12345/compress"
 
 	. "github.com/mmcloughlin/avo/build"
 	"github.com/mmcloughlin/avo/buildtags"
@@ -126,7 +126,7 @@ type options struct {
 }
 
 func (o options) genDecodeSeqAsm(name string) {
-	Package("github.com/klauspost/compress/zstd")
+	Package("github.com/wqshr12345/compress/zstd")
 	TEXT(name, 0, "func(s *sequenceDecs, br *bitReader, ctx *decodeAsmContext) int")
 	Doc(name+" decodes a sequence", "")
 	Pragma("noescape")
@@ -989,7 +989,7 @@ type executeSimple struct {
 }
 
 func (e executeSimple) generateProcedure(name string) {
-	Package("github.com/klauspost/compress/zstd")
+	Package("github.com/wqshr12345/compress/zstd")
 	TEXT(name, 0, "func (ctx *executeAsmContext) bool")
 	Doc(name+" implements the main loop of sequenceDecs.decode in x86 asm", "")
 	Pragma("noescape")
@@ -1447,7 +1447,7 @@ func (d *decodeSync) setBMI2(flag bool) {
 }
 
 func (d *decodeSync) generateProcedure(name string) {
-	Package("github.com/klauspost/compress/zstd")
+	Package("github.com/wqshr12345/compress/zstd")
 	TEXT(name, 0, "func (s *sequenceDecs, br *bitReader, ctx *decodeSyncAsmContext) int")
 	Doc(name+" implements the main loop of sequenceDecs.decodeSync in x86 asm", "")
 	Pragma("noescape")

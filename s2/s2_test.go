@@ -20,9 +20,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/klauspost/compress/internal/snapref"
-	"github.com/klauspost/compress/zip"
-	"github.com/klauspost/compress/zstd"
+	"github.com/wqshr12345/compress/internal/snapref"
+	"github.com/wqshr12345/compress/zip"
+	"github.com/wqshr12345/compress/zstd"
 )
 
 const maxUint = ^uint(0)

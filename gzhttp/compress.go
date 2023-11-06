@@ -18,9 +18,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/klauspost/compress/gzhttp/writer"
-	"github.com/klauspost/compress/gzhttp/writer/gzkp"
-	"github.com/klauspost/compress/gzip"
+	"github.com/wqshr12345/compress/gzhttp/writer"
+	"github.com/wqshr12345/compress/gzhttp/writer/gzkp"
+	"github.com/wqshr12345/compress/gzip"
 )
 
 const (
@@ -588,7 +588,7 @@ func SetContentType(b bool) option {
 
 // Implementation changes the implementation of GzipWriter
 //
-// The default implementation is backed by github.com/klauspost/compress
+// The default implementation is backed by github.com/wqshr12345/compress
 // To support RandomJitter, the GzipWriterExt must also be
 // supported by the returned writers.
 func Implementation(writer writer.GzipWriterFactory) option {

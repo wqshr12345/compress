@@ -11,8 +11,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/klauspost/compress/flate"
-	"github.com/klauspost/compress/zip"
+	"github.com/wqshr12345/compress/flate"
+	"github.com/wqshr12345/compress/zip"
 )
 
 func ExampleWriter() {

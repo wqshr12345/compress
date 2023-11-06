@@ -15,7 +15,7 @@ Forked from [github.com/eapache/go-xerial-snappy](https://github.com/eapache/go-
 
 Changes:
 
-* Uses [S2](https://github.com/klauspost/compress/tree/master/s2#snappy-compatibility) for better/faster compression and decompression.
+* Uses [S2](https://github.com/wqshr12345/compress/tree/master/s2#snappy-compatibility) for better/faster compression and decompression.
 * Fixes 0-length roundtrips.
 * Adds `DecodeCapped`, which allows decompression with capped output size.
 * `DecodeInto` will decode directly into destination if there is space enough.

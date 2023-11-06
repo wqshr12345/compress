@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/klauspost/compress/zip"
+	"github.com/wqshr12345/compress/zip"
 )
 
 func TestDecompress1X(t *testing.T) {

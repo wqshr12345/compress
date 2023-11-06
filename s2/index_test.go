@@ -10,7 +10,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/klauspost/compress/s2"
+	"github.com/wqshr12345/compress/s2"
 )
 
 func ExampleIndex_Load() {

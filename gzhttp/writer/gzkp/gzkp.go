@@ -1,4 +1,4 @@
-// package gzkp provides gzip compression through github.com/klauspost/compress/gzip.
+// package gzkp provides gzip compression through github.com/wqshr12345/compress/gzip.
 
 package gzkp
 
@@ -6,8 +6,8 @@ import (
 	"io"
 	"sync"
 
-	"github.com/klauspost/compress/gzhttp/writer"
-	"github.com/klauspost/compress/gzip"
+	"github.com/wqshr12345/compress/gzhttp/writer"
+	"github.com/wqshr12345/compress/gzip"
 )
 
 // gzipWriterPools stores a sync.Pool for each compression level for reuse of
@@ -75,5 +75,5 @@ func Levels() (min, max int) {
 }
 
 func ImplementationInfo() string {
-	return "klauspost/compress/gzip"
+	return "wqshr12345/compress/gzip"
 }

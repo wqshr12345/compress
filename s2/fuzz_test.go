@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/klauspost/compress/internal/fuzz"
-	"github.com/klauspost/compress/internal/snapref"
+	"github.com/wqshr12345/compress/internal/fuzz"
+	"github.com/wqshr12345/compress/internal/snapref"
 )
 
 func FuzzEncodingBlocks(f *testing.F) {

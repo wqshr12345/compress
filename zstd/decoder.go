@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/klauspost/compress/zstd/internal/xxhash"
+	"github.com/wqshr12345/compress/zstd/internal/xxhash"
 	"github.com/wqshr12345/golib/common"
 )
 
